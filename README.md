@@ -45,6 +45,7 @@
 | [LeetCode Solutions](https://github.com/Misagh95/leetcode-solutions) | Algorithm practice organized by topic | Python |
 | [Blog API](https://github.com/Misagh95/blog-api-nodejs) | RESTful blog API with Node.js and Express | Node.js |
 | [YouTube Bot](https://github.com/Misagh95/telegram-youtube-bot) | YouTube downloader bot for Telegram | TypeScript |
+| [DroperOG](https://github.com/Misagh95/droperog) | Multi-source airdrop hunter & trust scanner — CoinGecko, CryptoRank, RSS, Twitter | TypeScript |
 | [Umbra Clock](https://github.com/Misagh95/umbra-clock) | Dark-themed live clock dashboard with neon accents | HTML, CSS, JS |
 
 ---
