@@ -21,7 +21,7 @@
 
 ```yaml
 name: Misagh Nikkhah
-located_in: Iran
+located_in: Earth 🌍
 role: Blockchain Developer & Full-Stack Engineer
 
 focus_areas:
