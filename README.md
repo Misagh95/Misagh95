@@ -71,28 +71,19 @@ fun_fact: "⚡ I build bots that watch the chain 24/7 so you don't have to"
 
 ## 🚀 Featured Projects
 
-<div align="center">
-
-<a href="https://github.com/Misagh95/droperog"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=droperog&theme=radical&hide_border=true&cache_seconds=86400" width="49%" alt="DroperOG" /></a>
-<a href="https://github.com/Misagh95/dgdreams"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=dgdreams&theme=radical&hide_border=true&cache_seconds=86400" width="49%" alt="DGDreams" /></a>
-
-<a href="https://github.com/Misagh95/twitter-telegram-bot"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=twitter-telegram-bot&theme=radical&hide_border=true&cache_seconds=86400" width="49%" alt="Twitter Telegram Bot" /></a>
-<a href="https://github.com/Misagh95/Narsaq"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=Narsaq&theme=radical&hide_border=true&cache_seconds=86400" width="49%" alt="Narsaq" /></a>
-
-<a href="https://github.com/Misagh95/crypto-telegram-bots"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=crypto-telegram-bots&theme=radical&hide_border=true&cache_seconds=86400" width="49%" alt="Crypto Telegram Bots" /></a>
-<a href="https://github.com/Misagh95/defi-risk-scanner"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=defi-risk-scanner&theme=radical&hide_border=true&cache_seconds=86400" width="49%" alt="DeFi Risk Scanner" /></a>
-
-</div>
-
-### 🏗️ More Builds
-
 | 🏷️ Project | 📝 What it does | ⭐ |
 | --- | --- | --- |
-| 🪂 [**airdrop-monitor**](https://github.com/Misagh95/airdrop-monitor) | Monitors airdrops from X & Telegram channels with auto-translate | ![stars](https://img.shields.io/github/stars/Misagh95/airdrop-monitor?style=social) |
-| 👛 [**wallet-monitor-bot**](https://github.com/Misagh95/wallet-monitor-bot) | Watches blockchain wallet activity and alerts via Telegram | ![stars](https://img.shields.io/github/stars/Misagh95/wallet-monitor-bot?style=social) |
+| 🪂 [**DroperOG**](https://github.com/Misagh95/droperog) | Multi-source airdrop hunter & trust scanner (CoinGecko, CryptoRank, RSS, X) | ![stars](https://img.shields.io/github/stars/Misagh95/droperog?style=social) |
+| 🌐 [**DGDreams**](https://github.com/Misagh95/dgdreams) | Multi-chain Web3 task hub across 12 EVM networks | ![stars](https://img.shields.io/github/stars/Misagh95/dgdreams?style=social) |
+| 🐦 [**Twitter Telegram Bot**](https://github.com/Misagh95/twitter-telegram-bot) | Auto-forwards tweets from X to Telegram channels | ![stars](https://img.shields.io/github/stars/Misagh95/twitter-telegram-bot?style=social) |
+| 🛡️ [**Narsaq**](https://github.com/Misagh95/Narsaq) | Config endpoint tester for v2rayNG anti-filter configs | ![stars](https://img.shields.io/github/stars/Misagh95/Narsaq?style=social) |
+| 📊 [**Crypto Telegram Bots**](https://github.com/Misagh95/crypto-telegram-bots) | Collection of crypto monitoring & alert bots | ![stars](https://img.shields.io/github/stars/Misagh95/crypto-telegram-bots?style=social) |
+| 🔎 [**DeFi Risk Scanner**](https://github.com/Misagh95/defi-risk-scanner) | Token contract & wallet risk analysis across chains | ![stars](https://img.shields.io/github/stars/Misagh95/defi-risk-scanner?style=social) |
+| 🪂 [**airdrop-monitor**](https://github.com/Misagh95/airdrop-monitor) | Watches airdrops on X & Telegram channels with auto-translate | ![stars](https://img.shields.io/github/stars/Misagh95/airdrop-monitor?style=social) |
+| 👛 [**wallet-monitor-bot**](https://github.com/Misagh95/wallet-monitor-bot) | Blockchain wallet activity alerts via Telegram | ![stars](https://img.shields.io/github/stars/Misagh95/wallet-monitor-bot?style=social) |
 | ⚖️ [**truthcourt**](https://github.com/Misagh95/truthcourt) | Decentralized fact-check bounty market on GenLayer (AI consensus) | ![stars](https://img.shields.io/github/stars/Misagh95/truthcourt?style=social) |
-| 🔁 [**github-followback-checker**](https://github.com/Misagh95/github-followback-checker) | GitHub followback checker with auto-unfollow | ![stars](https://img.shields.io/github/stars/Misagh95/github-followback-checker?style=social) |
 | ⚽ [**penalty-strike-football-game**](https://github.com/Misagh95/penalty-strike-football-game) | Penalty shootout game — pick your corner and strike! | ![stars](https://img.shields.io/github/stars/Misagh95/penalty-strike-football-game?style=social) |
+| 🎬 [**production-youtube-downloader-platform**](https://github.com/Misagh95/production-youtube-downloader-platform) | Production-grade YouTube downloader platform | ![stars](https://img.shields.io/github/stars/Misagh95/production-youtube-downloader-platform?style=social) |
 | 🌐 [**portfolio**](https://github.com/Misagh95/portfolio) | Curated list of Web3, airdrop tools & learning resources | ![stars](https://img.shields.io/github/stars/Misagh95/portfolio?style=social) |
 
 ➡️ [Browse all repositories](https://github.com/Misagh95?tab=repositories)
@@ -103,13 +94,15 @@ fun_fact: "⚡ I build bots that watch the chain 24/7 so you don't have to"
 
 <div align="center">
 
-<img width="72%" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Misagh95&theme=github_dark" alt="Profile Details" />
+<!-- 🏭 These cards are generated by GitHub Actions (.github/workflows/snake.yml)
+     and served from this repo's `output` branch — no external service, no rate limits -->
+<img width="72%" src="https://raw.githubusercontent.com/Misagh95/Misagh95/output/profile-details.svg" alt="Profile Details" />
 
 <br/>
 
-<img width="32%" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=Misagh95&theme=github_dark" alt="Repos per Language" />
-<img width="32%" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=Misagh95&theme=github_dark" alt="Most Commit Language" />
-<img width="32%" src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=Misagh95&theme=github_dark" alt="Productive Time" />
+<img width="32%" src="https://raw.githubusercontent.com/Misagh95/Misagh95/output/repos-per-language.svg" alt="Repos per Language" />
+<img width="32%" src="https://raw.githubusercontent.com/Misagh95/Misagh95/output/most-commit-language.svg" alt="Most Commit Language" />
+<img width="32%" src="https://raw.githubusercontent.com/Misagh95/Misagh95/output/productive-time.svg" alt="Productive Time" />
 
 </div>
 
