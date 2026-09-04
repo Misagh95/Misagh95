@@ -103,8 +103,13 @@ fun_fact: "⚡ I build bots that watch the chain 24/7 so you don't have to"
 
 <div align="center">
 
-<img height="170" src="https://github-readme-stats.vercel.app/api?username=Misagh95&show_icons=true&theme=radical&hide_border=true&rank_icon=github&include_all_commits=true&cache_seconds=86400" alt="GitHub Stats" />
-<img height="170" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Misagh95&layout=compact&theme=radical&hide_border=true&langs_count=8&cache_seconds=86400" alt="Top Languages" />
+<img width="72%" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Misagh95&theme=github_dark" alt="Profile Details" />
+
+<br/>
+
+<img width="32%" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=Misagh95&theme=github_dark" alt="Repos per Language" />
+<img width="32%" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=Misagh95&theme=github_dark" alt="Most Commit Language" />
+<img width="32%" src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=Misagh95&theme=github_dark" alt="Productive Time" />
 
 </div>
 
