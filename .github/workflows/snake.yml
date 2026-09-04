@@ -25,7 +25,10 @@ jobs:
             dist/github-contribution-grid-snake.svg
             dist/github-contribution-grid-snake-dark.svg?palette=github-dark
 
+      # Cards are nice-to-have: if this step ever fails, the job continues
+      # and the snake is still published.
       - name: Generate profile summary cards
+        continue-on-error: true
         uses: vn7n24fzkq/github-profile-summary-cards@release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -34,6 +37,7 @@ jobs:
           THEME: github_dark
 
       - name: Collect summary cards
+        if: success() || failure()
         run: |
           mkdir -p dist
           find . -path ./dist -prune -o -type f -name '*.svg' -print | while read -r f; do
@@ -44,9 +48,12 @@ jobs:
               *productive-time*)        cp "$f" dist/productive-time.svg;;
             esac
           done
+          echo "--- dist contents ---"
           ls -la dist
 
-      - uses: peaceiris/actions-gh-pages@v4
+      - name: Publish to output branch
+        if: success() || failure()
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: dist
