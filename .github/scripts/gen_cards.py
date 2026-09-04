@@ -1,0 +1,320 @@
+#!/usr/bin/env python3
+"""
+Self-hosted GitHub profile stats card generator.
+Pure Python stdlib — no pip, no third-party actions.
+Fetches live data from the GitHub API and renders SVG cards into ./dist
+with the same filenames the profile README already references.
+"""
+
+import base64
+import json
+import math
+import os
+import urllib.request
+from datetime import datetime, timedelta, timezone
+
+TOKEN = os.environ.get("GITHUB_TOKEN", "")
+USER = "Misagh95"
+OUT = "dist"
+
+# ── theme ────────────────────────────────────────────────────────────
+BG      = "#161b22"
+BORDER  = "#30363d"
+TEXT    = "#e6edf3"
+MUTED   = "#8b949e"
+VIOLET  = "#8b5cf6"
+CYAN    = "#22d3ee"
+RED     = "#f85149"
+GREEN   = "#3fb950"
+YELLOW  = "#d29922"
+
+LANG_COLORS = {
+    "Python": "#3572A5", "TypeScript": "#3178c6", "JavaScript": "#f1e05a",
+    "Kotlin": "#A97BFF", "Go": "#00ADD8", "Solidity": "#AA6746",
+    "HTML": "#e34c26", "CSS": "#563d7c", "Shell": "#89e051",
+    "Dockerfile": "#384d54", "C": "#555555", "C++": "#f34b7d",
+    "Java": "#b07219", "Rust": "#dea584", "Ruby": "#701516",
+    "PHP": "#4F5D95", "Swift": "#F05138", "Dart": "#00B4AB",
+}
+FALLBACK = [VIOLET, CYAN, "#f778ba", GREEN, YELLOW, "#ff7b72", "#79c0ff"]
+
+# ── helpers ──────────────────────────────────────────────────────────
+def esc(s):
+    return (str(s).replace("&", "&amp;").replace("<", "&lt;")
+            .replace(">", "&gt;").replace('"', "&quot;"))
+
+def kfmt(n):
+    return f"{n/1000:.1f}k" if n >= 1000 else str(n)
+
+def api_rest(path):
+    req = urllib.request.Request("https://api.github.com" + path)
+    req.add_header("Authorization", f"Bearer {TOKEN}")
+    req.add_header("User-Agent", "profile-cards-bot")
+    req.add_header("Accept", "application/vnd.github+json")
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return json.loads(r.read().decode())
+
+def api_graphql(query):
+    req = urllib.request.Request("https://api.github.com/graphql")
+    req.add_header("Authorization", f"Bearer {TOKEN}")
+    req.add_header("User-Agent", "profile-cards-bot")
+    req.data = json.dumps({"query": query}).encode()
+    with urllib.request.urlopen(req, timeout=30) as r:
+        body = json.loads(r.read().decode())
+    if body.get("errors"):
+        raise RuntimeError(body["errors"])
+    return body["data"]
+
+def parse_date(s):
+    return datetime.fromisoformat(s.replace("Z", "+00:00"))
+
+def lang_color(name, idx):
+    return LANG_COLORS.get(name, FALLBACK[idx % len(FALLBACK)])
+
+def card_open(w, h):
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" '
+            f'viewBox="0 0 {w} {h}">'
+            f'<rect x="1" y="1" width="{w-2}" height="{h-2}" rx="12" fill="{BG}" '
+            f'stroke="{BORDER}" stroke-width="1"/>')
+
+# ── data gathering (each block independent & fault-tolerant) ─────────
+def gather():
+    d = {"user": {}, "langs": [], "commit_langs": [], "hours": [0]*24,
+         "contribs": {}, "year_ago": datetime.now(timezone.utc) - timedelta(days=365)}
+    try:                                    # basic profile
+        u = api_rest(f"/users/{USER}")
+        d["user"] = {"followers": u.get("followers", 0),
+                     "following": u.get("following", 0),
+                     "repos": u.get("public_repos", 0),
+                     "avatar": u.get("avatar_url", "")}
+    except Exception as e:
+        print("warn: user fetch failed:", e)
+
+    repos = []
+    try:                                    # owned repos (not forks), 2 pages max
+        for page in (1, 2):
+            batch = api_rest(f"/users/{USER}/repos?type=owner&per_page=100&page={page}")
+            repos += batch
+            if len(batch) < 100:
+                break
+        repos = [r for r in repos if not r.get("fork")]
+        d["user"]["stars"] = sum(r.get("stargazers_count", 0) for r in repos)
+        d["user"]["forks"] = sum(r.get("forks_count", 0) for r in repos)
+    except Exception as e:
+        print("warn: repos fetch failed:", e)
+        d["user"].setdefault("stars", 0)
+        d["user"].setdefault("forks", 0)
+
+    top = sorted(repos, key=lambda r: (r.get("stargazers_count", 0),
+                                       r.get("pushed_at", "")), reverse=True)
+
+    lang_bytes = {}                         # language bytes over top 30 repos
+    for r in top[:30]:
+        try:
+            langs = api_rest(r["languages_url"].replace("https://api.github.com", ""))
+            for k, v in langs.items():
+                lang_bytes[k] = lang_bytes.get(k, 0) + v
+        except Exception:
+            pass
+
+    total_bytes = sum(lang_bytes.values()) or 1
+    d["langs"] = sorted(lang_bytes.items(), key=lambda x: -x[1])
+
+    commit_lang = {}                        # commit-weighted languages
+    since = d["year_ago"].strftime("%Y-%m-%dT%H:%M:%SZ")
+    for r in top[:15]:                      # sample commits for hours + weights
+        try:
+            commits = api_rest(f"/repos/{USER}/{r['name']}/commits?per_page=100&since={since}")
+            if not isinstance(commits, list):
+                continue
+            dominant = r.get("language") or "Other"
+            weight = len(commits)
+            commit_lang[dominant] = commit_lang.get(dominant, 0) + weight
+            for c in commits:
+                try:
+                    dt = parse_date(c["commit"]["author"]["date"])
+                    d["hours"][dt.hour] += 1
+                except Exception:
+                    pass
+        except Exception:
+            pass
+    d["commit_langs"] = sorted(commit_lang.items(), key=lambda x: -x[1]) or d["langs"][:8]
+
+    try:                                    # contributions via GraphQL (1 call)
+        q = f'''{{ user(login: "{USER}") {{ contributionsCollection {{
+            totalCommitContributions totalIssueContributions
+            totalPullRequestContributions totalRepositoryContributions
+            contributionCalendar {{ totalContributions }}
+        }} }} }}'''
+        cc = api_graphql(q)["user"]["contributionsCollection"]
+        d["contribs"] = {
+            "total": cc["contributionCalendar"]["totalContributions"],
+            "commits": cc["totalCommitContributions"],
+            "issues": cc["totalIssueContributions"],
+            "prs": cc["totalPullRequestContributions"],
+            "newrepos": cc["totalRepositoryContributions"],
+        }
+    except Exception as e:
+        print("warn: graphql failed:", e)
+
+    return d
+
+# ── card 1 · profile details ─────────────────────────────────────────
+def render_profile(d):
+    W, H = 720, 210
+    s = [card_open(W, H)]
+    s.append(f'<text x="24" y="38" font-family="Segoe UI,Helvetica,Arial,sans-serif" '
+             f'font-size="17" font-weight="700" fill="{TEXT}">📊 {esc(USER)} · Profile Details</text>')
+
+    u = d["user"]
+    av = ""
+    if u.get("avatar"):
+        try:
+            b64 = base64.b64encode(urllib.request.urlopen(u["avatar"], timeout=20).read()).decode()
+            av = (f'<image x="24" y="60" width="110" height="110" rx="10" '
+                  f'href="data:image/png;base64,{b64}"/>')
+        except Exception:
+            pass
+    s.append(av)
+    x0 = 170 if av else 24
+
+    cols = [("Followers", kfmt(u.get("followers", 0)), CYAN),
+            ("Total Stars", "⭐ " + kfmt(u.get("stars", 0)), YELLOW),
+            ("Public Repos", kfmt(u.get("repos", 0)), VIOLET),
+            ("Contributions (1y)", kfmt(d["contribs"].get("total", 0)), GREEN)]
+    cw = (W - x0 - 24) // 4
+    for i, (label, val, color) in enumerate(cols):
+        cx = x0 + i * cw
+        s.append(f'<text x="{cx + cw//2}" y="95" text-anchor="middle" font-family="Segoe UI,Helvetica,Arial,sans-serif" '
+                 f'font-size="26" font-weight="800" fill="{color}">{esc(val)}</text>')
+        s.append(f'<text x="{cx + cw//2}" y="118" text-anchor="middle" font-family="Segoe UI,Helvetica,Arial,sans-serif" '
+                 f'font-size="12" fill="{MUTED}">{esc(label)}</text>')
+
+    c2 = [("Commits (1y)", d["contribs"].get("commits", 0), VIOLET),
+          ("Pull Requests", d["contribs"].get("prs", 0), CYAN),
+          ("Issues", d["contribs"].get("issues", 0), RED),
+          ("Forks earned", kfmt(u.get("forks", 0)), GREEN)]
+    for i, (label, val, color) in enumerate(c2):
+        cx = x0 + i * cw
+        s.append(f'<text x="{cx + cw//2}" y="160" text-anchor="middle" font-family="Segoe UI,Helvetica,Arial,sans-serif" '
+                 f'font-size="20" font-weight="700" fill="{color}">{esc(kfmt(val) if isinstance(val, int) else val)}</text>')
+        s.append(f'<text x="{cx + cw//2}" y="180" text-anchor="middle" font-family="Segoe UI,Helvetica,Arial,sans-serif" '
+                 f'font-size="12" fill="{MUTED}">{esc(label)}</text>')
+    s.append("</svg>")
+    return "".join(s)
+
+# ── card 2 · donut · repos per language ──────────────────────────────
+def _donut(items, cx, cy, r, thickness):
+    total = sum(v for _, v in items) or 1
+    C = 2 * math.pi * r
+    out, offset, idx = [], 0, 0
+    for name, v in items:
+        frac = v / total
+        seg = frac * C
+        out.append(f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" '
+                   f'stroke="{lang_color(name, idx)}" stroke-width="{thickness}" '
+                   f'stroke-dasharray="{seg:.1f} {C-seg:.1f}" '
+                   f'stroke-dashoffset="{-offset:.1f}" transform="rotate(-90 {cx} {cy})"/>')
+        offset += seg
+        idx += 1
+    return "".join(out)
+
+def render_repos_langs(d):
+    W, H = 340, 210
+    s = [card_open(W, H)]
+    s.append(f'<text x="20" y="34" font-family="Segoe UI,Helvetica,Arial,sans-serif" '
+             f'font-size="15" font-weight="700" fill="{TEXT}">🥧 Languages (all repos)</text>')
+    top = d["langs"][:6]
+    if not top:
+        s.append(f'<text x="170" y="120" text-anchor="middle" fill="{MUTED}" '
+                 f'font-family="Segoe UI" font-size="13">refreshing…</text></svg>')
+        return "".join(s)
+    total = sum(v for _, v in top) + sum(v for _, v in d["langs"][6:])
+    shown = sum(v for _, v in top)
+    items = top + ([("Other", total - shown)] if total - shown > 0 else [])
+    s.append(_donut(items, 95, 128, 58, 20))
+    ly = 78
+    for i, (name, v) in enumerate(items):
+        y = ly + i * 21
+        s.append(f'<rect x="185" y="{y-10}" width="11" height="11" rx="3" fill="{lang_color(name, i)}"/>')
+        s.append(f'<text x="203" y="{y}" font-family="Segoe UI,Helvetica,Arial,sans-serif" '
+                 f'font-size="12" fill="{TEXT}">{esc(name)}</text>')
+        pct = 100 * v // total
+        s.append(f'<text x="{W-20}" y="{y}" text-anchor="end" font-family="Segoe UI,Helvetica,Arial,sans-serif" '
+                 f'font-size="12" fill="{MUTED}">{pct}%</text>')
+    s.append("</svg>")
+    return "".join(s)
+
+# ── card 3 · bars · commit-weighted languages ────────────────────────
+def render_commit_langs(d):
+    W, H = 340, 210
+    s = [card_open(W, H)]
+    s.append(f'<text x="20" y="34" font-family="Segoe UI,Helvetica,Arial,sans-serif" '
+             f'font-size="15" font-weight="700" fill="{TEXT}">💬 Most active languages</text>')
+    items = d["commit_langs"][:6]
+    if not items:
+        s.append(f'<text x="170" y="120" text-anchor="middle" fill="{MUTED}" '
+                 f'font-family="Segoe UI" font-size="13">refreshing…</text></svg>')
+        return "".join(s)
+    mx = max(v for _, v in items) or 1
+    y = 56
+    for i, (name, v) in enumerate(items):
+        bw = int(150 * v / mx)
+        s.append(f'<text x="20" y="{y+13}" font-family="Segoe UI,Helvetica,Arial,sans-serif" '
+                 f'font-size="12" fill="{TEXT}">{esc(name[:14])}</text>')
+        s.append(f'<rect x="130" y="{y+2}" width="150" height="14" rx="7" fill="{BORDER}"/>')
+        s.append(f'<rect x="130" y="{y+2}" width="{bw}" height="14" rx="7" fill="{lang_color(name, i)}"/>')
+        s.append(f'<text x="{W-20}" y="{y+13}" text-anchor="end" font-family="Segoe UI,Helvetica,Arial,sans-serif" '
+                 f'font-size="11" fill="{MUTED}">{kfmt(v)}</text>')
+        y += 25
+    s.append("</svg>")
+    return "".join(s)
+
+# ── card 4 · productive time ─────────────────────────────────────────
+def render_hours(d):
+    W, H = 340, 210
+    s = [card_open(W, H)]
+    hours = d["hours"]
+    s.append(f'<text x="20" y="34" font-family="Segoe UI,Helvetica,Arial,sans-serif" '
+             f'font-size="15" font-weight="700" fill="{TEXT}">⏰ Productive time (UTC)</text>')
+    total = sum(hours)
+    if not total:
+        s.append(f'<text x="170" y="120" text-anchor="middle" fill="{MUTED}" '
+                 f'font-family="Segoe UI" font-size="13">refreshing…</text></svg>')
+        return "".join(s)
+    peak = hours.index(max(hours))
+    base_y, x0, bw, gap = 160, 25, 9, 4
+    mx = max(hours)
+    for h in range(24):
+        bh = max(3, int(90 * hours[h] / mx))
+        x = x0 + h * (bw + gap)
+        color = CYAN if h == peak else (VIOLET if 8 <= h <= 23 else BORDER)
+        s.append(f'<rect x="{x}" y="{base_y-bh}" width="{bw}" height="{bh}" rx="2.5" fill="{color}"/>')
+        if h % 6 == 0:
+            s.append(f'<text x="{x+bw//2}" y="{base_y+16}" text-anchor="middle" '
+                     f'font-family="Segoe UI" font-size="9" fill="{MUTED}">{h:02d}</text>')
+    day_pct = 100 * sum(hours[8:24]) // total
+    s.append(f'<text x="20" y="192" font-family="Segoe UI,Helvetica,Arial,sans-serif" '
+             f'font-size="11" fill="{MUTED}">Peak hour '
+             f'<tspan fill="{CYAN}" font-weight="700">{peak:02d}:00 UTC</tspan> · '
+             f'{day_pct}% of commits by day 🌞</text>')
+    s.append("</svg>")
+    return "".join(s)
+
+# ── main ─────────────────────────────────────────────────────────────
+def main():
+    os.makedirs(OUT, exist_ok=True)
+    d = gather()
+    cards = {
+        "profile-details.svg":      render_profile(d),
+        "repos-per-language.svg":   render_repos_langs(d),
+        "most-commit-language.svg": render_commit_langs(d),
+        "productive-time.svg":      render_hours(d),
+    }
+    for name, svg in cards.items():
+        with open(os.path.join(OUT, name), "w", encoding="utf-8") as f:
+            f.write(svg)
+        print("wrote", name, len(svg), "bytes")
+
+if __name__ == "__main__":
+    main()
