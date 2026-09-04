@@ -2,7 +2,7 @@
 <!--  Misagh95 · GitHub Profile — violet→cyan edition                  -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:8b5cf6,100:22d3ee&height=200&section=header&text=Hi%20%F0%9F%91%8B%2C%20I%27m%20Misagh&fontSize=52&fontColor=ffffff&animation=fadeIn&fontAlignY=36&desc=Web3%20%26%20Python%20Developer%20%F0%9F%9A%80&descAlignY=58&descSize=18" width="100%" alt="header" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:8b5cf6,100:22d3ee&height=200&section=header&text=Hi%20%F0%9F%91%8B%2C%20I%27m%20Misagh&fontSize=52&fontColor=ffffff&animation=fadeIn&fontAlignY=36&desc=Web3%20%2B%20Python%20Developer%20%F0%9F%9A%80&descAlignY=58&descSize=18" width="100%" alt="header" />
 
 <div align="center">
 
@@ -12,7 +12,7 @@
 
 <br/>
 
-<a href="https://github.com/Misagh95"><img src="https://readme-typing-svg.demolab.com/?lines=Web3+%26+DeFi+builder;Crypto+intelligence+%26+on-chain+analytics;Telegram+bots+%26+automation;Full-stack+engineer&font=Fira+Code&center=true&width=560&height=45&color=67e8f9&vCenter=true&size=20&pause=1000" alt="Typing SVG" /></a>
+<a href="https://github.com/Misagh95"><img src="https://readme-typing-svg.demolab.com/?lines=Web3+%E2%80%A2+DeFi+builder;Crypto+intelligence+%E2%80%A2+on-chain+analytics;Telegram+bots+%E2%80%A2+automation;Full-stack+engineer&font=Fira+Code&center=true&width=560&height=45&color=67e8f9&vCenter=true&size=20&pause=1000" alt="Typing SVG" /></a>
 
 <br/>
 
@@ -73,14 +73,14 @@ fun_fact: "⚡ I build bots that watch the chain 24/7 so you don't have to"
 
 <div align="center">
 
-<a href="https://github.com/Misagh95/droperog"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=droperog&theme=radical&hide_border=true" width="49%" alt="DroperOG" /></a>
-<a href="https://github.com/Misagh95/dgdreams"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=dgdreams&theme=radical&hide_border=true" width="49%" alt="DGDreams" /></a>
+<a href="https://github.com/Misagh95/droperog"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=droperog&theme=radical&hide_border=true&cache_seconds=86400" width="49%" alt="DroperOG" /></a>
+<a href="https://github.com/Misagh95/dgdreams"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=dgdreams&theme=radical&hide_border=true&cache_seconds=86400" width="49%" alt="DGDreams" /></a>
 
-<a href="https://github.com/Misagh95/twitter-telegram-bot"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=twitter-telegram-bot&theme=radical&hide_border=true" width="49%" alt="Twitter Telegram Bot" /></a>
-<a href="https://github.com/Misagh95/Narsaq"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=Narsaq&theme=radical&hide_border=true" width="49%" alt="Narsaq" /></a>
+<a href="https://github.com/Misagh95/twitter-telegram-bot"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=twitter-telegram-bot&theme=radical&hide_border=true&cache_seconds=86400" width="49%" alt="Twitter Telegram Bot" /></a>
+<a href="https://github.com/Misagh95/Narsaq"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=Narsaq&theme=radical&hide_border=true&cache_seconds=86400" width="49%" alt="Narsaq" /></a>
 
-<a href="https://github.com/Misagh95/crypto-telegram-bots"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=crypto-telegram-bots&theme=radical&hide_border=true" width="49%" alt="Crypto Telegram Bots" /></a>
-<a href="https://github.com/Misagh95/defi-risk-scanner"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=defi-risk-scanner&theme=radical&hide_border=true" width="49%" alt="DeFi Risk Scanner" /></a>
+<a href="https://github.com/Misagh95/crypto-telegram-bots"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=crypto-telegram-bots&theme=radical&hide_border=true&cache_seconds=86400" width="49%" alt="Crypto Telegram Bots" /></a>
+<a href="https://github.com/Misagh95/defi-risk-scanner"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=defi-risk-scanner&theme=radical&hide_border=true&cache_seconds=86400" width="49%" alt="DeFi Risk Scanner" /></a>
 
 </div>
 
@@ -103,30 +103,14 @@ fun_fact: "⚡ I build bots that watch the chain 24/7 so you don't have to"
 
 <div align="center">
 
-<img height="170" src="https://github-readme-stats.vercel.app/api?username=Misagh95&show_icons=true&theme=radical&hide_border=true&rank_icon=github&include_all_commits=true" alt="GitHub Stats" />
-<img height="170" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Misagh95&layout=compact&theme=radical&hide_border=true&langs_count=8" alt="Top Languages" />
+<img height="170" src="https://github-readme-stats.vercel.app/api?username=Misagh95&show_icons=true&theme=radical&hide_border=true&rank_icon=github&include_all_commits=true&cache_seconds=86400" alt="GitHub Stats" />
+<img height="170" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Misagh95&layout=compact&theme=radical&hide_border=true&langs_count=8&cache_seconds=86400" alt="Top Languages" />
 
 </div>
 
 <div align="center">
 
 <img height="165" src="https://streak-stats.demolab.com/?user=Misagh95&theme=radical&hide_border=true&locale=en" alt="GitHub Streak" />
-
-</div>
-
-<div align="center">
-
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=Misagh95&theme=react-dark&hide_border=true&area=true" width="95%" alt="Activity Graph" />
-
-</div>
-
----
-
-## 🏆 GitHub Trophies
-
-<div align="center">
-
-<img src="https://github-profile-trophy.vercel.app/?username=Misagh95&theme=radical&no-frame=true&row=1&column=7&margin-w=6" width="95%" alt="Trophies" />
 
 </div>
 
