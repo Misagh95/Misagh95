@@ -1,8 +1,11 @@
-name: Generate Snake
+name: Generate profile assets
 
 on:
   schedule:
     - cron: "0 0 * * *"
+  push:
+    branches: [main]
+    paths: ['.github/workflows/**']
   workflow_dispatch:
 
 permissions:
@@ -13,12 +16,36 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: Platane/snk@v3
+
+      - name: Generate contribution snake
+        uses: Platane/snk@v3
         with:
           github_user_name: Misagh95
           outputs: |
             dist/github-contribution-grid-snake.svg
             dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+
+      - name: Generate profile summary cards
+        uses: vn7n24fzkq/github-profile-summary-cards@release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          USERNAME: Misagh95
+          THEME: github_dark
+
+      - name: Collect summary cards
+        run: |
+          mkdir -p dist
+          find . -path ./dist -prune -o -type f -name '*.svg' -print | while read -r f; do
+            case "$(basename "$f")" in
+              *profile-details*)        cp "$f" dist/profile-details.svg;;
+              *repos-per-language*)     cp "$f" dist/repos-per-language.svg;;
+              *most-commit-language*)   cp "$f" dist/most-commit-language.svg;;
+              *productive-time*)        cp "$f" dist/productive-time.svg;;
+            esac
+          done
+          ls -la dist
+
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
