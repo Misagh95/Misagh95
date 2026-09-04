@@ -1,21 +1,22 @@
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!--  Misagh95 · GitHub Profile                                        -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+
+<img src="https://capsule-render.vercel.app/api?type=waving&height=190&section=header&text=Misagh&fontSize=68&fontColor=ffffff&fontAlignY=32&desc=Web3%20%26%20Python%20Developer&descAlignY=53&descSize=17&color=0:1f6feb,50:8957e5,100:c084fc&animation=fadeIn" width="100%" alt="header" />
+
 <div align="center">
 
-<!-- Header -->
+<a href="https://github.com/Misagh95"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=24&pause=1200&color=8957E5&center=true&vCenter=true&width=620&lines=Hi+there%2C+I%27m+Misagh+%F0%9F%91%8B;Building+crypto+tools+%26+Telegram+bots+%F0%9F%A4%96;Airdrop+automation+%26+on-chain+analytics+%F0%9F%93%A1;Open+source+enthusiast+%F0%9F%9A%80" alt="Typing SVG" /></a>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=28&pause=1100&color=58A6FF&center=true&vCenter=true&width=700&lines=Hi%F0%9F%91%8B+I'm+Misagh;Web3+%26+Full-Stack+Developer;Building+Crypto+Tools+%26+Automation;Python+%7C+TypeScript+%7C+Kotlin+%7C+Go" alt="Typing SVG" />
+<br/>
 
-<!-- Shield Badges -->
+<a href="https://github.com/Misagh95?tab=followers"><img src="https://img.shields.io/github/followers/Misagh95?label=Followers&style=for-the-badge&color=1f6feb&logo=github" alt="Followers" /></a>
+<a href="https://github.com/Misagh95?tab=repositories"><img src="https://img.shields.io/github/stars/Misagh95?affiliations=OWNER&label=Total%20Stars&style=for-the-badge&color=bc4cff&logo=github" alt="Total stars" /></a>
+<img src="https://komarev.com/ghpvc/?username=Misagh95&style=for-the-badge&color=blueviolet&label=Profile+Views" alt="Profile views" />
 
-<a href="https://github.com/Misagh95?tab=followers"><img src="https://img.shields.io/github/followers/Misagh95?label=Followers&style=for-the-badge&color=blue" alt="GitHub followers" /></a>
-<a href="https://github.com/Misagh95?tab=following"><img src="https://img.shields.io/github/following/Misagh95?label=Following&style=for-the-badge&color=purple" alt="GitHub following" /></a>
-<a href="https://github.com/Misagh95?tab=repositories"><img src="https://img.shields.io/github/repos/Misagh95?label=Repos&style=for-the-badge&color=green" alt="GitHub repos" /></a>
-<img src="https://komarev.com/ghpvc/?username=Misagh95&style=for-the-badge&color=blue&label=Profile+views" alt="Profile views" />
+<br/>
 
-<br />
-
-<!-- Social Links -->
-
-<a href="https://x.com/misagh_nikkhah"><img src="https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white" alt="X" /></a>
+<a href="https://x.com/misagh_nikkhah"><img src="https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white" alt="X (Twitter)" /></a>
 <a href="https://t.me/misagh_nikkhah"><img src="https://img.shields.io/badge/Telegram-26A5E4?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram" /></a>
 <a href="mailto:misaghmafi9@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
 
@@ -23,52 +24,44 @@
 
 ---
 
-## ðŸ§‘â€ðŸ’» About Me
+## 🧑‍💻 About Me
 
 <div align="center">
 
 ```yaml
 name: "Misagh"
-title: "Web3 & Full-Stack Developer"
+role: "Web3 & Python Developer"
+location: "🌍 Remote / Worldwide"
 currently_building:
-  - "ðŸ” Narsaq - Config endpoint tester for v2rayNG"
-  - "ðŸŒ DGDreams - Multi-chain Web3 task hub"
-  - "ðŸ¦ FollowBack Checker - GitHub automation tool"
-fields_of_expertise:
-  - "Web3 & DeFi"
-  - "Crypto Intelligence"
-  - "Telegram Bots & Automation"
-  - "On-chain Analytics"
-languages:
-  - Python
-  - TypeScript
-  - Kotlin
-  - Go
-  - Solidity
-  - JavaScript
-hobbies:
-  - "Exploring new Web3 protocols"
-  - "Building open-source tools"
-  - "Contributing to the developer community"
+  - "🪂 DroperOG — multi-source airdrop hunter & trust scanner"
+  - "🌐 DGDreams — multi-chain Web3 task hub (12 EVM networks)"
+  - "🐦 FollowBack Checker — GitHub automation tool"
+focus_areas:
+  - "Web3 & DeFi tooling"
+  - "Crypto intelligence & automation"
+  - "Telegram bots & on-chain monitoring"
+  - "Anti-censorship network tools"
+languages: [Python, TypeScript, Kotlin, Go, Solidity, JavaScript]
+fun_fact: "⚡ I build bots that watch the chain 24/7 so you don't have to"
 ```
 
 </div>
 
 ---
 
-## ðŸ› ï¸ Tech Stack
+## 🛠️ Tech Stack
 
 <div align="center">
 
-### ðŸ”¤ Languages
+### 🗣️ Languages
 
 <img src="https://skillicons.dev/icons?i=python,ts,js,kotlin,go,solidity" alt="Languages" />
 
-### ðŸŒ Web3 & Full Stack
+### 🌐 Web3 & Full Stack
 
-<img src="https://skillicons.dev/icons?i=react,nextjs,nodejs,fastapi,vite,tailwind" alt="Web3" />
+<img src="https://skillicons.dev/icons?i=react,nextjs,nodejs,fastapi,vite,tailwind" alt="Web3 & Full Stack" />
 
-### ðŸ§° Tools & Infrastructure
+### 🧰 Tools & Infrastructure
 
 <img src="https://skillicons.dev/icons?i=git,github,docker,linux,vscode,postgres" alt="Tools" />
 
@@ -76,39 +69,48 @@ hobbies:
 
 ---
 
-## ðŸš€ Featured Projects
+## 🚀 Featured Projects
 
 <div align="center">
 
-| ðŸ·ï¸ Project | ðŸ“ Description | ðŸ› ï¸ Stack | â­ Stars |
-| --- | --- | --- | --- |
-| ðŸ” [**Narsaq**](https://github.com/Misagh95/Narsaq) | Config endpoint tester for v2rayNG anti-filter | `Kotlin` | â­ |
-| ðŸŒ [**DGDreams**](https://github.com/Misagh95/dgdreams) | Multi-chain Web3 task hub for 12 EVM networks | `TypeScript` `React` | â­ |
-| ðŸ¦ [**Twitter Telegram Bot**](https://github.com/Misagh95/twitter-telegram-bot) | Auto-forward tweets from X to Telegram | `Python` | â­ |
-| ðŸª‚ [**DroperOG**](https://github.com/Misagh95/droperog) | Multi-source airdrop hunter & trust scanner | `Python` `APIs` | â­ |
-| ðŸ” [**DeFi Risk Scanner**](https://github.com/Misagh95/defi-risk-scanner) | Token contract & wallet risk analysis | `TypeScript` `React` | â­ |
-| ðŸ“Š [**Crypto Telegram Bots**](https://github.com/Misagh95/crypto-telegram-bots) | Crypto monitoring & alert bots | `Python` | â­ |
-| ðŸ” [**FollowBack Checker**](https://github.com/Misagh95/github-followback-checker) | GitHub followback checker with auto-unfollow | `JavaScript` | â­ |
+<a href="https://github.com/Misagh95/droperog"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=droperog&theme=github_dark&hide_border=true" width="49%" alt="DroperOG" /></a>
+<a href="https://github.com/Misagh95/dgdreams"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=dgdreams&theme=github_dark&hide_border=true" width="49%" alt="DGDreams" /></a>
+
+<a href="https://github.com/Misagh95/twitter-telegram-bot"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=twitter-telegram-bot&theme=github_dark&hide_border=true" width="49%" alt="Twitter Telegram Bot" /></a>
+<a href="https://github.com/Misagh95/crypto-telegram-bots"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=crypto-telegram-bots&theme=github_dark&hide_border=true" width="49%" alt="Crypto Telegram Bots" /></a>
+
+<a href="https://github.com/Misagh95/Narsaq"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=Narsaq&theme=github_dark&hide_border=true" width="49%" alt="Narsaq" /></a>
+<a href="https://github.com/Misagh95/defi-risk-scanner"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Misagh95&repo=defi-risk-scanner&theme=github_dark&hide_border=true" width="49%" alt="DeFi Risk Scanner" /></a>
 
 </div>
 
+### 🏗️ More Builds
+
+| 🏷️ Project | 📝 What it does | ⭐ |
+| --- | --- | --- |
+| 🪂 [**airdrop-monitor**](https://github.com/Misagh95/airdrop-monitor) | Monitors airdrops from X & Telegram channels with auto-translate | ![stars](https://img.shields.io/github/stars/Misagh95/airdrop-monitor?style=social) |
+| 👛 [**wallet-monitor-bot**](https://github.com/Misagh95/wallet-monitor-bot) | Watches blockchain wallet activity and alerts via Telegram | ![stars](https://img.shields.io/github/stars/Misagh95/wallet-monitor-bot?style=social) |
+| ⚖️ [**truthcourt**](https://github.com/Misagh95/truthcourt) | Decentralized fact-check bounty market on GenLayer (AI consensus) | ![stars](https://img.shields.io/github/stars/Misagh95/truthcourt?style=social) |
+| ⚽ [**penalty-strike-football-game**](https://github.com/Misagh95/penalty-strike-football-game) | Penalty shootout game — pick your corner and strike! | ![stars](https://img.shields.io/github/stars/Misagh95/penalty-strike-football-game?style=social) |
+| 🎬 [**production-youtube-downloader-platform**](https://github.com/Misagh95/production-youtube-downloader-platform) | Production-grade YouTube downloader platform | ![stars](https://img.shields.io/github/stars/Misagh95/production-youtube-downloader-platform?style=social) |
+| 🌐 [**portfolio**](https://github.com/Misagh95/portfolio) | Curated list of Web3, airdrop tools & learning resources | ![stars](https://img.shields.io/github/stars/Misagh95/portfolio?style=social) |
+
+➡️ [Browse all repositories](https://github.com/Misagh95?tab=repositories)
+
 ---
 
-## ðŸ“Š GitHub Activity
+## 📊 GitHub Stats
 
 <div align="center">
 
 <img height="180" src="https://github-readme-stats.vercel.app/api?username=Misagh95&show_icons=true&theme=github_dark&hide_border=true&rank_icon=github&include_all_commits=true" alt="GitHub Stats" />
-
 <img height="180" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Misagh95&layout=compact&theme=github_dark&hide_border=true&langs_count=8" alt="Top Languages" />
 
 </div>
 
 <div align="center">
 
-<a href="https://github.com/Misagh95/github-streak-stats">
-  <img height="170" src="https://github-readme-streak-stats.herokuapp.com/?user=Misagh95&theme=github-dark&hide_border=true" alt="GitHub Streak" />
-</a>
+<img height="170" src="https://streak-stats.demolab.com/?user=Misagh95&theme=github-dark-blue&hide_border=true&locale=en" alt="GitHub Streak" />
 
 </div>
 
@@ -120,7 +122,17 @@ hobbies:
 
 ---
 
-## ðŸ Contribution Snake
+## 🏆 GitHub Trophies
+
+<div align="center">
+
+<img src="https://github-profile-trophy.vercel.app/?username=Misagh95&theme=discord&no-frame=true&row=1&column=7&margin-w=6" width="95%" alt="Trophies" />
+
+</div>
+
+---
+
+## 🐍 Contribution Snake
 
 <div align="center">
 
@@ -134,7 +146,7 @@ hobbies:
 
 ---
 
-## ðŸ’¡ Random Dev Quote
+## 💡 Random Dev Quote
 
 <div align="center">
 
@@ -144,7 +156,7 @@ hobbies:
 
 ---
 
-## ðŸ¤ Let's Connect
+## 🤝 Let's Connect
 
 <div align="center">
 
@@ -158,8 +170,8 @@ hobbies:
 
 <div align="center">
 
-![Visitors](https://api.visitorbadge.io/api/visitors?path=Misagh95%2FMisagh95&countColor=%23374151&style=for-the-badge&label=PROFILE%20VISITORS)
+**🌱 Building useful software at the intersection of Web3 and automation.**
 
-**ðŸŒ± Building useful software at the intersection of Web3 and automation.**
+<img src="https://capsule-render.vercel.app/api?type=waving&height=130&section=footer&text=Thanks%20for%20visiting&fontSize=20&fontColor=ffffff&color=0:c084fc,50:8957e5,100:1f6feb&animation=fadeIn" width="100%" alt="footer" />
 
 </div>
