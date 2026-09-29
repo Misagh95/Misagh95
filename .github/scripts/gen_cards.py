@@ -263,11 +263,12 @@ def render_commit_langs(d):
     mx = max(v for _, v in items) or 1
     y = 56
     for i, (name, v) in enumerate(items):
-        bw = int(150 * v / mx)
+        bw = max(4, int(150 * v / mx))        # never render a 1px sliver
+        rx = min(7, bw // 2)
         s.append(f'<text x="20" y="{y+13}" font-family="Segoe UI,Helvetica,Arial,sans-serif" '
                  f'font-size="12" fill="{TEXT}">{esc(name[:14])}</text>')
         s.append(f'<rect x="130" y="{y+2}" width="150" height="14" rx="7" fill="{BORDER}"/>')
-        s.append(f'<rect x="130" y="{y+2}" width="{bw}" height="14" rx="7" fill="{lang_color(name, i)}"/>')
+        s.append(f'<rect x="130" y="{y+2}" width="{bw}" height="14" rx="{rx}" fill="{lang_color(name, i)}"/>')
         s.append(f'<text x="{W-20}" y="{y+13}" text-anchor="end" font-family="Segoe UI,Helvetica,Arial,sans-serif" '
                  f'font-size="11" fill="{MUTED}">{kfmt(v)}</text>')
         y += 25
