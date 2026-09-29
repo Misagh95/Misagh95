@@ -1,4 +1,4 @@
-﻿name: Generate profile assets
+name: Generate profile assets
 
 on:
   schedule:
@@ -34,21 +34,23 @@ jobs:
         run: |
           python3 .github/scripts/gen_cards.py --publish
 
+      - name: Collect all assets into dist
+        run: |
+          mkdir -p dist
+          cp snake-dist/*.svg dist/
+          ls -l dist
+
       - name: Verify generated assets
         run: |
           fail=0
-          for f in profile-details.svg repos-per-language.svg most-commit-language.svg productive-time.svg; do
+          for f in profile-details.svg repos-per-language.svg most-commit-language.svg \
+                   productive-time.svg github-contribution-grid-snake.svg \
+                   github-contribution-grid-snake-dark.svg; do
             if [ -s "dist/$f" ]; then
               echo "ok dist/$f ($(wc -c < "dist/$f") bytes)"
             else
-              echo "::error::missing or empty asset: dist/$f"; fail=1
-            fi
-          done
-          for f in github-contribution-grid-snake.svg github-contribution-grid-snake-dark.svg; do
-            if [ -s "snake-dist/$f" ]; then
-              echo "ok snake-dist/$f ($(wc -c < "snake-dist/$f") bytes)"
-            else
-              echo "::error::missing or empty asset: snake-dist/$f"; fail=1
+              echo "::error::missing or empty asset: dist/$f"
+              fail=1
             fi
           done
           exit $fail
@@ -58,7 +60,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: |
-            dist
-            snake-dist
+          publish_dir: dist
           publish_branch: output
