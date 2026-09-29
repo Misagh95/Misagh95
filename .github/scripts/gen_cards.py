@@ -11,6 +11,7 @@ writing into it fail with PermissionError. The workflow copies ./cards into
 ./dist (after chmod) before publishing.
 """
 
+import base64
 import json
 import math
 import os
@@ -175,10 +176,20 @@ def render_profile(d):
     u = d["user"]
     av = ""
     if u.get("avatar"):
-        # Reference the avatar by URL instead of embedding base64.
-        # Embedding made this card ~430 KB and slowed down profile rendering.
-        av = (f'<image x="24" y="60" width="110" height="110" rx="10" '
-              f'href="{esc(u["avatar"])}"/>')
+        # The avatar MUST be embedded as base64: browsers block external
+        # resources inside an SVG rendered via <img> (SVG-as-image sandbox).
+        # Requesting ?s=100 keeps the embed ~20 KB instead of the ~430 KB
+        # the full-size avatar produced.
+        try:
+            url = u["avatar"] + ("&" if "?" in u["avatar"] else "?") + "s=100"
+            req = urllib.request.Request(url)
+            req.add_header("User-Agent", "profile-cards-bot")
+            raw = urllib.request.urlopen(req, timeout=20).read()
+            b64 = base64.b64encode(raw).decode()
+            av = (f'<image x="24" y="60" width="110" height="110" rx="10" '
+                  f'href="data:image/png;base64,{b64}"/>')
+        except Exception as e:
+            print("warn: avatar embed failed:", e)
     s.append(av)
     x0 = 170 if av else 24
 
