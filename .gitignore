@@ -1,0 +1,12 @@
+# Generated at build time by .github/workflows/snake.yml — published to `output` branch
+dist/
+cards/
+cards_test*/
+
+# Legacy output from the old github-readme-stats action (no longer used)
+profile-summary-card-output/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.log

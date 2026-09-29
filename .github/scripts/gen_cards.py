@@ -2,20 +2,26 @@
 """
 Self-hosted GitHub profile stats card generator.
 Pure Python stdlib — no pip, no third-party actions.
-Fetches live data from the GitHub API and renders SVG cards into ./dist
+Fetches live data from the GitHub API and renders SVG cards into ./cards
 with the same filenames the profile README already references.
+
+NOTE: cards are written to ./cards, NOT ./dist. The Platane/snk action that
+runs before this script creates ./dist as a read-only directory, which made
+writing into it fail with PermissionError. The workflow copies ./cards into
+./dist (after chmod) before publishing.
 """
 
-import base64
 import json
 import math
 import os
+import shutil
+import sys
 import urllib.request
 from datetime import datetime, timedelta, timezone
 
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
 USER = "Misagh95"
-OUT = "dist"
+OUT = os.environ.get("CARDS_DIR", "cards")
 
 # ── theme ────────────────────────────────────────────────────────────
 BG      = "#161b22"
@@ -169,12 +175,10 @@ def render_profile(d):
     u = d["user"]
     av = ""
     if u.get("avatar"):
-        try:
-            b64 = base64.b64encode(urllib.request.urlopen(u["avatar"], timeout=20).read()).decode()
-            av = (f'<image x="24" y="60" width="110" height="110" rx="10" '
-                  f'href="data:image/png;base64,{b64}"/>')
-        except Exception:
-            pass
+        # Reference the avatar by URL instead of embedding base64.
+        # Embedding made this card ~430 KB and slowed down profile rendering.
+        av = (f'<image x="24" y="60" width="110" height="110" rx="10" '
+              f'href="{esc(u["avatar"])}"/>')
     s.append(av)
     x0 = 170 if av else 24
 
@@ -303,6 +307,8 @@ def render_hours(d):
 
 # ── main ─────────────────────────────────────────────────────────────
 def main():
+    if os.path.isdir(OUT):
+        shutil.rmtree(OUT)          # never inherit stale read-only files
     os.makedirs(OUT, exist_ok=True)
     d = gather()
     cards = {
@@ -312,9 +318,22 @@ def main():
         "productive-time.svg":      render_hours(d),
     }
     for name, svg in cards.items():
-        with open(os.path.join(OUT, name), "w", encoding="utf-8") as f:
+        path = os.path.join(OUT, name)
+        with open(path, "w", encoding="utf-8") as f:
             f.write(svg)
+        os.chmod(path, 0o644)       # keep files writable for later steps
         print("wrote", name, len(svg), "bytes")
+
+    if "--publish" in sys.argv:
+        # dist/ is created read-only by Platane/snk — make it writable first
+        dist = "dist"
+        os.makedirs(dist, exist_ok=True)
+        for name in cards:
+            target = os.path.join(dist, name)
+            if os.path.exists(target):
+                os.chmod(target, 0o644)
+            shutil.copyfile(os.path.join(OUT, name), target)
+            print("published", target)
 
 if __name__ == "__main__":
     main()
