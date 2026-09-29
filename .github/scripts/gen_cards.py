@@ -325,15 +325,27 @@ def main():
         print("wrote", name, len(svg), "bytes")
 
     if "--publish" in sys.argv:
-        # dist/ is created read-only by Platane/snk — make it writable first
+        # Platane/snk creates ./dist (and the files in it) read-only,
+        # so both the directory and any existing target must be unlocked
+        # before we can copy the generated cards in.
         dist = "dist"
+        if os.path.isdir(dist):
+            for root, dirs, files in os.walk(dist):
+                os.chmod(root, 0o755)
+                for fn in files:
+                    try:
+                        os.chmod(os.path.join(root, fn), 0o644)
+                    except OSError:
+                        pass
         os.makedirs(dist, exist_ok=True)
         for name in cards:
             target = os.path.join(dist, name)
-            if os.path.exists(target):
-                os.chmod(target, 0o644)
-            shutil.copyfile(os.path.join(OUT, name), target)
-            print("published", target)
+            with open(os.path.join(OUT, name), "rb") as src:
+                data = src.read()
+            with open(target, "wb") as dst:
+                dst.write(data)
+            os.chmod(target, 0o644)
+            print("published", target, len(data), "bytes")
 
 if __name__ == "__main__":
     main()
