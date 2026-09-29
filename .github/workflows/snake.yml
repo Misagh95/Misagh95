@@ -21,9 +21,12 @@ jobs:
         uses: Platane/snk@v3
         with:
           github_user_name: Misagh95
+          # NOTE: snk writes its SVGs read-only, which made it impossible for
+          # the stats step to reuse ./dist. Keep the two in separate folders
+          # and publish both from the workflow instead.
           outputs: |
-            dist/github-contribution-grid-snake.svg
-            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+            snake-dist/github-contribution-grid-snake.svg
+            snake-dist/github-contribution-grid-snake-dark.svg?palette=github-dark
 
       - name: Generate stats cards
         env:
@@ -33,18 +36,29 @@ jobs:
 
       - name: Verify generated assets
         run: |
+          fail=0
           for f in profile-details.svg repos-per-language.svg most-commit-language.svg productive-time.svg; do
-            if [ ! -s "dist/$f" ]; then
-              echo "::error::missing or empty asset: dist/$f"
-              exit 1
+            if [ -s "dist/$f" ]; then
+              echo "ok dist/$f ($(wc -c < "dist/$f") bytes)"
+            else
+              echo "::error::missing or empty asset: dist/$f"; fail=1
             fi
-            echo "ok dist/$f ($(wc -c < "dist/$f") bytes)"
           done
+          for f in github-contribution-grid-snake.svg github-contribution-grid-snake-dark.svg; do
+            if [ -s "snake-dist/$f" ]; then
+              echo "ok snake-dist/$f ($(wc -c < "snake-dist/$f") bytes)"
+            else
+              echo "::error::missing or empty asset: snake-dist/$f"; fail=1
+            fi
+          done
+          exit $fail
 
       - name: Publish to output branch
         if: success() || failure()
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: dist
+          publish_dir: |
+            dist
+            snake-dist
           publish_branch: output

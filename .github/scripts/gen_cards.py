@@ -325,18 +325,9 @@ def main():
         print("wrote", name, len(svg), "bytes")
 
     if "--publish" in sys.argv:
-        # Platane/snk creates ./dist (and the files in it) read-only,
-        # so both the directory and any existing target must be unlocked
-        # before we can copy the generated cards in.
+        # ./dist is ours alone (the snake action writes to ./snake-dist),
+        # so this copy is a plain overwrite of files we own.
         dist = "dist"
-        if os.path.isdir(dist):
-            for root, dirs, files in os.walk(dist):
-                os.chmod(root, 0o755)
-                for fn in files:
-                    try:
-                        os.chmod(os.path.join(root, fn), 0o644)
-                    except OSError:
-                        pass
         os.makedirs(dist, exist_ok=True)
         for name in cards:
             target = os.path.join(dist, name)
@@ -344,7 +335,6 @@ def main():
                 data = src.read()
             with open(target, "wb") as dst:
                 dst.write(data)
-            os.chmod(target, 0o644)
             print("published", target, len(data), "bytes")
 
 if __name__ == "__main__":

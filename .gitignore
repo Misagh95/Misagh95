@@ -1,6 +1,7 @@
 # Generated at build time by .github/workflows/snake.yml — published to `output` branch
 dist/
 cards/
+snake-dist/
 cards_test*/
 
 # Legacy output from the old github-readme-stats action (no longer used)
